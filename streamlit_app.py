@@ -26,7 +26,7 @@ st.write(f"Rows: {df.shape[0]} Columns: {df.shape[1]}")
 st.subheader("🔍 Random 10 rows")
 st.dataframe(df.sample(10), use_container_width=True)
 
-# st.subheader("🔍 Visualization")
+st.subheader("🔍 Visualization")
 # col1, col2 = st.columns(2)
 # with col1:
 #   fig1 = px.histogram(df, x="species", color="island", barmode="group", title="Distribution of species across islands")
@@ -34,6 +34,54 @@ st.dataframe(df.sample(10), use_container_width=True)
 # with col2:
 #   fig2 = px.scatter(df, x="bill_length_mm", y="flipper_length_mm", color="species", title="Bill length vs Flipper length")
 #   st.plotly_chart(fig2, use_container_width=True)
+
+# Create a figure
+fig = plt.figure(figsize=(10, 15))
+
+# Define the GridSpec: 2 rows, 2 columns
+# The top subplot will span both columns of the first row
+# The bottom two subplots will each occupy one column of the second row
+gs = fig.add_gridspec(3, 2)
+
+# First subplot (top, spans both columns)
+ax1 = fig.add_subplot(gs[0, :]) # gs[0, :] means first row, all columns
+ax1.set_title('Распределение возраста среди всех пассажиров и выживших пассажиров')
+ax1.set_label('Возраст')
+ax1.set_label('Кол-во')
+sns.histplot(data=data, x='Age', hue='Survived', multiple='stack', ax=ax1)
+
+# Second subplot (bottom-left)
+ax2 = fig.add_subplot(gs[1, 0]) # gs[1, 0] means second row, first column
+ax2.set_title('Кол-во братьев/сестр/супруга/супруги')
+ax2.set_xlabel('Братья/Сестры/Супруги ')
+ax2.set_ylabel('Кол-во')
+sns.barplot(data=data.groupby('SibSp').count(), x='SibSp', y='PassengerId', ax=ax2)
+sns.barplot(data=data.groupby('SibSp').sum(), x='SibSp', y='Survived', ax=ax2, color='orange')
+
+# Third subplot (bottom-right)
+ax3 = fig.add_subplot(gs[1, 1]) # gs[1, 1] means second row, second column
+ax3.set_title('Кол-во детей/родителей')
+ax3.set_xlabel('Дети/Родители ')
+ax3.set_ylabel('Кол-во')
+sns.barplot(data=data.groupby('Parch').count(), x='Parch', y='PassengerId', ax=ax3)
+sns.barplot(data=data.groupby('Parch').sum(), x='Parch', y='Survived', ax=ax3, color='orange')
+
+ax4 = fig.add_subplot(gs[2, 0]) # gs[1, 1] means second row, second column
+ax4.set_title('Число пассажиров и выживших разных классов')
+ax4.set_xlabel('Класс')
+ax4.set_ylabel('Кол-во')
+sns.barplot(data=data.groupby('Pclass').count(), x='Pclass', y='PassengerId', ax=ax4)
+sns.barplot(data=data.groupby('Pclass').sum(), x='Pclass', y='Survived', ax=ax4, color='orange')
+
+ax5 = fig.add_subplot(gs[2, 1]) # gs[1, 1] means second row, second column
+ax5.set_title('Кол-во пассажиров и выживших с разных портов посадки')
+ax5.set_xlabel('Порт')
+ax5.set_ylabel('Кол-во')
+sns.barplot(data=data.groupby('Embarked').count(), x='Embarked', y='PassengerId', ax=ax5)
+sns.barplot(data=data.groupby('Embarked').sum(), x='Embarked', y='Survived', ax=ax5, color='orange')
+
+plt.tight_layout()
+st.plotly_chart(fig, use_container_width=True)
 
 # X = df.drop(["species"], axis=1)
 # y = df["species"]
