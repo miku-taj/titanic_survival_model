@@ -23,8 +23,8 @@ df = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_mo
 st.subheader("Dataset shape")
 st.write(f"Rows: {df.shape[0]} Columns: {df.shape[1]}")
 
-# st.subheader("🔍 Random 10 rows")
-# st.dataframe(df.sample(10), use_container_width=True)
+st.subheader("🔍 Random 10 rows")
+st.dataframe(df.sample(10), use_container_width=True)
 
 # st.subheader("🔍 Visualization")
 # col1, col2 = st.columns(2)
