@@ -24,9 +24,9 @@ data = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_
 
 
 st.sidebar.markdown('''
-- [Dataset shape](#section-1)
-- [Random 10 rows](#section-2)
-- [Visualization](#section-3)
+- [Dataset shape](#dataset-shape)
+- [Random 10 rows](#random-10-rows)
+- [Visualization](#visualization)
 ''', unsafe_allow_html=True)
 
 st.header("Dataset shape")
