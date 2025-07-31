@@ -47,33 +47,33 @@ gs = fig.add_gridspec(2, 3)
 
 # First subplot (top, spans both columns)
 ax1 = fig.add_subplot(gs[0, :2]) # gs[0, :] means first row, all columns
-ax1.set_title('Распределение возраста среди всех пассажиров и выживших пассажиров')
+ax1.set_title('Возраст пассажиров и выживших')
 ax1.set_label('Возраст')
 ax1.set_label('Кол-во')
 sns.histplot(data=data, x='Age', hue='Survived', multiple='stack', ax=ax1)
 
 # Second subplot (bottom-left)
 ax2 = fig.add_subplot(gs[1, 0]) # gs[1, 0] means second row, first column
-ax2.set_title('Кол-во братьев/сестр/супруга/супруги')
+ax2.set_title('Сиблинги/супруги и выживание')
 ax2.set_xlabel('Братья/Сестры/Супруги ')
 ax2.set_ylabel('Кол-во')
 sns.countplot(x='SibSp', hue='Survived', data=data, ax=ax2)
 
 # Third subplot (bottom-right)
 ax3 = fig.add_subplot(gs[1, 1]) # gs[1, 1] means second row, second column
-ax3.set_title('Кол-во детей/родителей')
+ax3.set_title('Дети/родители и выживание')
 ax3.set_xlabel('Дети/Родители ')
 ax3.set_ylabel('Кол-во')
 sns.countplot(x='Parch', hue='Survived', data=data, ax=ax3)
 
 ax4 = fig.add_subplot(gs[0, 2]) # gs[1, 1] means second row, second column
-ax4.set_title('Число пассажиров и выживших разных классов')
+ax4.set_title('Класс пассажира и выживание')
 ax4.set_xlabel('Класс')
 ax4.set_ylabel('Кол-во')
 sns.countplot(x='Pclass', hue='Survived', data=data, ax=ax4)
 
 ax5 = fig.add_subplot(gs[1, 2]) # gs[1, 1] means second row, second column
-ax5.set_title('Кол-во пассажиров и выживших с разных портов посадки')
+ax5.set_title('Порт посадки и выживание')
 ax5.set_xlabel('Порт')
 ax5.set_ylabel('Кол-во')
 sns.countplot(x='Embarked', hue='Survived', data=data, ax=ax5)
