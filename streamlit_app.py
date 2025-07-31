@@ -24,6 +24,7 @@ data = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_
 
 
 st.sidebar.markdown('''
+# Sections
 - [Dataset shape](#dataset-shape)
 - [Random 10 rows](#random-10-rows)
 - [Visualization](#visualization)
@@ -37,7 +38,7 @@ st.dataframe(data.sample(10), use_container_width=True)
 
 st.header("Visualization")
 
-sns.set(font_scale=0.8)
+# sns.set(font_scale=0.8)
 fig = plt.figure(figsize=(8, 6))
 gs = fig.add_gridspec(2, 3)
 
