@@ -9,10 +9,17 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
 st.set_page_config(page_title="Titanic Survival Model", layout="wide")
-st.title('itanic Survival Model')
+st.title('Titanic Survival Model')
 st.write('Working with titanic dataset')
 
 df = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_model/refs/heads/master/Titanic-Dataset.csv")
+
+
+# Ideas - generate random person and predic function
+# Randomly picking a person from the dataset
+# Or like when showing a sample - add a button that renews the sample 
+# But first - dataset familiarization: shape, info, columns meaning, then plots
+
 
 # st.subheader("Dataset shape")
 # st.write("Rows: ", df.shape[0])
