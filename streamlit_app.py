@@ -38,7 +38,7 @@ st.subheader("🔍 Visualization")
 #   st.plotly_chart(fig2, use_container_width=True)
 
 # Create a figure
-fig = plt.figure(figsize=(10, 15))
+fig = plt.figure(figsize=(8, 12))
 
 # Define the GridSpec: 2 rows, 2 columns
 # The top subplot will span both columns of the first row
@@ -78,7 +78,7 @@ ax5.set_xlabel('Порт')
 ax5.set_ylabel('Кол-во')
 sns.countplot(x='Embarked', hue='Survived', data=data, ax=ax5)
 plt.tight_layout()
-st.pyplot(fig)
+st.pyplot(fig, use_container_width=True)
 
 # X = df.drop(["species"], axis=1)
 # y = df["species"]
