@@ -29,50 +29,36 @@ st.subheader("🔍 Random 10 rows")
 st.dataframe(data.sample(10), use_container_width=True)
 
 st.subheader("🔍 Visualization")
-# col1, col2 = st.columns(2)
-# with col1:
-#   fig1 = px.histogram(df, x="species", color="island", barmode="group", title="Distribution of species across islands")
-#   st.plotly_chart(fig1, use_container_width=True)
-# with col2:
-#   fig2 = px.scatter(df, x="bill_length_mm", y="flipper_length_mm", color="species", title="Bill length vs Flipper length")
-#   st.plotly_chart(fig2, use_container_width=True)
 
-# Create a figure
+sns.set(font_scale=0.8)
 fig = plt.figure(figsize=(8, 6))
-
-# Define the GridSpec: 2 rows, 2 columns
-# The top subplot will span both columns of the first row
-# The bottom two subplots will each occupy one column of the second row
 gs = fig.add_gridspec(2, 3)
 
-# First subplot (top, spans both columns)
-ax1 = fig.add_subplot(gs[0, :2]) # gs[0, :] means first row, all columns
+ax1 = fig.add_subplot(gs[0, :2])
 ax1.set_title('Возраст пассажиров и выживших')
 ax1.set_label('Возраст')
 ax1.set_label('Кол-во')
 sns.histplot(data=data, x='Age', hue='Survived', multiple='stack', ax=ax1)
 
-# Second subplot (bottom-left)
-ax2 = fig.add_subplot(gs[1, 0]) # gs[1, 0] means second row, first column
+ax2 = fig.add_subplot(gs[1, 0])
 ax2.set_title('Сиблинги/супруги и выживание')
 ax2.set_xlabel('Братья/Сестры/Супруги ')
 ax2.set_ylabel('Кол-во')
 sns.countplot(x='SibSp', hue='Survived', data=data, ax=ax2)
 
-# Third subplot (bottom-right)
-ax3 = fig.add_subplot(gs[1, 1]) # gs[1, 1] means second row, second column
+ax3 = fig.add_subplot(gs[1, 1])
 ax3.set_title('Дети/родители и выживание')
 ax3.set_xlabel('Дети/Родители ')
 ax3.set_ylabel('Кол-во')
 sns.countplot(x='Parch', hue='Survived', data=data, ax=ax3)
 
-ax4 = fig.add_subplot(gs[0, 2]) # gs[1, 1] means second row, second column
+ax4 = fig.add_subplot(gs[0, 2])
 ax4.set_title('Класс пассажира и выживание')
 ax4.set_xlabel('Класс')
 ax4.set_ylabel('Кол-во')
 sns.countplot(x='Pclass', hue='Survived', data=data, ax=ax4)
 
-ax5 = fig.add_subplot(gs[1, 2]) # gs[1, 1] means second row, second column
+ax5 = fig.add_subplot(gs[1, 2])
 ax5.set_title('Порт посадки и выживание')
 ax5.set_xlabel('Порт')
 ax5.set_ylabel('Кол-во')
