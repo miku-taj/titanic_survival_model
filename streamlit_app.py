@@ -39,6 +39,9 @@ st.dataframe(data.sample(10), use_container_width=True)
 st.header("Visualization")
 
 # sns.set(font_scale=0.8)
+sns.set_theme(style="white")
+sns.set_palette("Set2")
+
 fig = plt.figure(figsize=(8, 6))
 gs = fig.add_gridspec(2, 3)
 
