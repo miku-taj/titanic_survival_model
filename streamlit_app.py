@@ -14,13 +14,16 @@ st.set_page_config(page_title="Titanic Survival Model", layout="wide")
 st.title('Titanic Survival Model')
 st.write('Working with titanic dataset')
 
-data = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_model/refs/heads/master/Titanic-Dataset.csv")
+data = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_model/refs/heads/master/Clean-Titanic-Dataset.csv")
 
 # Ideas - generate random person and predic function
 # Randomly picking a person from the dataset
 # Or like when showing a sample - add a button that renews the sample 
 # But first - dataset familiarization: shape, info, columns meaning, then plots
 # allow user to upload csv rather than thru buttons - but then we need to implement outputs for a whole bunch of instances?
+# take into account user might not know some values yk? like, fare
+# Side bar menu with proper styling
+# mb represent the predictin graphically somehow? 
 
 
 st.sidebar.markdown('''
