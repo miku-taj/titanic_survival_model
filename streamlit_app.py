@@ -38,7 +38,7 @@ st.dataframe(data.sample(10), use_container_width=True)
 
 st.header("Visualization")
 
-sns.set_theme(style="whitegrid", palette="Pastel2", font_scale=0.6)
+sns.set_theme(style="whitegrid", palette="Set2", font_scale=0.6)
 
 fig = plt.figure(figsize=(8, 6))
 gs = fig.add_gridspec(2, 3)
