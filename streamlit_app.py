@@ -38,9 +38,7 @@ st.dataframe(data.sample(10), use_container_width=True)
 
 st.header("Visualization")
 
-sns.set(font_scale=0.6)
-sns.set_theme(style="whitegrid") 
-sns.set_palette("muted")
+sns.set_theme(style="whitegrid", palette="muted", font_scale=0.6)
 
 fig = plt.figure(figsize=(8, 6))
 gs = fig.add_gridspec(2, 3)
@@ -49,7 +47,7 @@ ax1 = fig.add_subplot(gs[0, :2])
 ax1.set_title('Возраст пассажиров и выживших')
 ax1.set_label('Возраст')
 ax1.set_label('Кол-во')
-ax1.legend(title="Выжил", labels=["Нет", "Да"])
+ax1.legend(title="Выжил", loc="upper right", frameon=False)
 sns.histplot(data=data, x='Age', hue='Survived', multiple='stack', ax=ax1)
 
 ax2 = fig.add_subplot(gs[1, 0])
