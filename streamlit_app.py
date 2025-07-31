@@ -57,31 +57,26 @@ ax2 = fig.add_subplot(gs[1, 0]) # gs[1, 0] means second row, first column
 ax2.set_title('Кол-во братьев/сестр/супруга/супруги')
 ax2.set_xlabel('Братья/Сестры/Супруги ')
 ax2.set_ylabel('Кол-во')
-sns.barplot(data=data.groupby('SibSp').count(), x='SibSp', y='PassengerId', ax=ax2)
-sns.barplot(data=data.groupby('SibSp').sum(), x='SibSp', y='Survived', ax=ax2, color='orange')
+sns.countplot(x='SibSp', hue='Survived', data=data, ax=ax2)
 
 # Third subplot (bottom-right)
 ax3 = fig.add_subplot(gs[1, 1]) # gs[1, 1] means second row, second column
 ax3.set_title('Кол-во детей/родителей')
 ax3.set_xlabel('Дети/Родители ')
 ax3.set_ylabel('Кол-во')
-sns.barplot(data=data.groupby('Parch').count(), x='Parch', y='PassengerId', ax=ax3)
-sns.barplot(data=data.groupby('Parch').sum(), x='Parch', y='Survived', ax=ax3, color='orange')
+sns.countplot(x='Parch', hue='Survived', data=data, ax=ax3)
 
 ax4 = fig.add_subplot(gs[2, 0]) # gs[1, 1] means second row, second column
 ax4.set_title('Число пассажиров и выживших разных классов')
 ax4.set_xlabel('Класс')
 ax4.set_ylabel('Кол-во')
-sns.barplot(data=data.groupby('Pclass').count(), x='Pclass', y='PassengerId', ax=ax4)
-sns.barplot(data=data.groupby('Pclass').sum(), x='Pclass', y='Survived', ax=ax4, color='orange')
+sns.countplot(x='Pclass', hue='Survived', data=data, ax=ax4)
 
 ax5 = fig.add_subplot(gs[2, 1]) # gs[1, 1] means second row, second column
 ax5.set_title('Кол-во пассажиров и выживших с разных портов посадки')
 ax5.set_xlabel('Порт')
 ax5.set_ylabel('Кол-во')
-sns.barplot(data=data.groupby('Embarked').count(), x='Embarked', y='PassengerId', ax=ax5)
-sns.barplot(data=data.groupby('Embarked').sum(), x='Embarked', y='Survived', ax=ax5, color='orange')
-
+sns.countplot(x='Embarked', hue='Survived', data=data, ax=ax5)
 plt.tight_layout()
 st.plotly_chart(fig, use_container_width=True)
 
