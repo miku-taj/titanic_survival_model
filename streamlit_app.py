@@ -14,16 +14,14 @@ st.write('Working with titanic dataset')
 
 df = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_model/refs/heads/master/Titanic-Dataset.csv")
 
-
 # Ideas - generate random person and predic function
 # Randomly picking a person from the dataset
 # Or like when showing a sample - add a button that renews the sample 
 # But first - dataset familiarization: shape, info, columns meaning, then plots
+# allow user to upload csv rather than thru buttons - but then we need to implement outputs for a whole bunch of instances?
 
-
-# st.subheader("Dataset shape")
-# st.write("Rows: ", df.shape[0])
-# st.write("Columns: ", df.shape[1])
+st.subheader("Dataset shape")
+st.write(f"Rows: {df.shape[0]} Columns: {df.shape[1]}")
 
 # st.subheader("🔍 Random 10 rows")
 # st.dataframe(df.sample(10), use_container_width=True)
