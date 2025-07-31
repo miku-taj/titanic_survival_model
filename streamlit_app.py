@@ -78,7 +78,7 @@ ax5.set_xlabel('Порт')
 ax5.set_ylabel('Кол-во')
 sns.countplot(x='Embarked', hue='Survived', data=data, ax=ax5)
 plt.tight_layout()
-st.pyplot(fig, use_container_width=True)
+st.pyplot(fig)
 
 # X = df.drop(["species"], axis=1)
 # y = df["species"]
