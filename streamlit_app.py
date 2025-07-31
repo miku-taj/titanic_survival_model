@@ -1,18 +1,18 @@
-# import streamlit as st
-# import pandas as pd
-# import numpy as np
-# import category_encoders as ce
-# import plotly.express as px
-# from sklearn.model_selection import train_test_split
-# from sklearn.metrics import accuracy_score
-# from sklearn.tree import DecisionTreeClassifier
-# from sklearn.neighbors import KNeighborsClassifier
+import streamlit as st
+import pandas as pd
+import numpy as np
+import category_encoders as ce
+import plotly.express as px
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
-# st.set_page_config(page_title="🐧 Penguin Classifier", layout="wide")
-# st.title('🐧 Penguin Classifier')
-# st.write('Working with penguin dataset')
+st.set_page_config(page_title="Titanic Survival Model", layout="wide")
+st.title('itanic Survival Model')
+st.write('Working with titanic dataset')
 
-# df = pd.read_csv("https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_model/refs/heads/master/Titanic-Dataset.csv")
 
 # st.subheader("Dataset shape")
 # st.write("Rows: ", df.shape[0])
