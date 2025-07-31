@@ -38,7 +38,7 @@ st.subheader("🔍 Visualization")
 #   st.plotly_chart(fig2, use_container_width=True)
 
 # Create a figure
-fig = plt.figure(figsize=(8, 12))
+fig = plt.figure(figsize=(8, 6))
 
 # Define the GridSpec: 2 rows, 2 columns
 # The top subplot will span both columns of the first row
