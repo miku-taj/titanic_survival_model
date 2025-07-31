@@ -22,6 +22,10 @@ data = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_
 # But first - dataset familiarization: shape, info, columns meaning, then plots
 # allow user to upload csv rather than thru buttons - but then we need to implement outputs for a whole bunch of instances?
 
+st.markdown("[Dataset shape](#section-1)")
+st.markdown("[Random 10 rows](#section-2)")
+st.markdown("[Visualization](#section-3)")
+
 st.subheader("Dataset shape")
 st.write(f"Rows: {data.shape[0]} Columns: {data.shape[1]}")
 
