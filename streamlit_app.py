@@ -43,10 +43,10 @@ fig = plt.figure(figsize=(8, 12))
 # Define the GridSpec: 2 rows, 2 columns
 # The top subplot will span both columns of the first row
 # The bottom two subplots will each occupy one column of the second row
-gs = fig.add_gridspec(3, 2)
+gs = fig.add_gridspec(2, 3)
 
 # First subplot (top, spans both columns)
-ax1 = fig.add_subplot(gs[0, :]) # gs[0, :] means first row, all columns
+ax1 = fig.add_subplot(gs[0, :2]) # gs[0, :] means first row, all columns
 ax1.set_title('Распределение возраста среди всех пассажиров и выживших пассажиров')
 ax1.set_label('Возраст')
 ax1.set_label('Кол-во')
@@ -66,13 +66,13 @@ ax3.set_xlabel('Дети/Родители ')
 ax3.set_ylabel('Кол-во')
 sns.countplot(x='Parch', hue='Survived', data=data, ax=ax3)
 
-ax4 = fig.add_subplot(gs[2, 0]) # gs[1, 1] means second row, second column
+ax4 = fig.add_subplot(gs[0, 2]) # gs[1, 1] means second row, second column
 ax4.set_title('Число пассажиров и выживших разных классов')
 ax4.set_xlabel('Класс')
 ax4.set_ylabel('Кол-во')
 sns.countplot(x='Pclass', hue='Survived', data=data, ax=ax4)
 
-ax5 = fig.add_subplot(gs[2, 1]) # gs[1, 1] means second row, second column
+ax5 = fig.add_subplot(gs[1, 2]) # gs[1, 1] means second row, second column
 ax5.set_title('Кол-во пассажиров и выживших с разных портов посадки')
 ax5.set_xlabel('Порт')
 ax5.set_ylabel('Кол-во')
