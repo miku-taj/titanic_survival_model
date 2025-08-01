@@ -125,6 +125,9 @@ y_predict = model.predict(X_test_scaled)
 # st.table(pd.DataFrame(results))
 
 # st.sidebar.header("Prediction based on features")
+
+st.header('Make Prediction')
+
 # island_input = st.sidebar.selectbox("Island", df['island'].unique())
 # sex_input = st.sidebar.selectbox("Sex", df['sex'].unique())
 # bill_length_input = st.sidebar.slider("Bill Length (mm)", float(df['bill_length_mm'].min()), float(df['bill_length_mm'].max()), float(df['bill_length_mm'].mean()))
@@ -132,7 +135,23 @@ y_predict = model.predict(X_test_scaled)
 # flipper_length_input = st.sidebar.slider("Flipper Length (mm)", float(df['flipper_length_mm'].min()), float(df['flipper_length_mm'].max()), float(df['flipper_length_mm'].mean()))
 # body_mass_input = st.sidebar.slider("Body Mass (g)", float(df['body_mass_g'].min()), float(df['body_mass_g'].max()), float(df['body_mass_g'].mean()))
 
-st.header('Make Prediction')
+
+with st.form("user_input_form"):
+    # Categorical inputs
+    pclass_input = st.selectbox("Класс (Pclass)", [1, 2, 3], index=2)
+    sex_input = st.radio("Пол (Sex)", ['male', 'female'])
+    embarked_input = st.selectbox("Порт посадки (Embarked)", ['C', 'Q', 'S'])
+    prefix_input = st.selectbox("Обращение (Name Prefix)", ['Mr', 'Mrs', 'Miss', 'Master', 'Dr', 'Rev', 'Other'])
+
+    # Numerical inputs
+    age_input = st.number_input("Возраст (Age)", min_value=0.0, max_value=100.0, step=1.0)
+    sibsp_input = st.number_input("Братья/сестры или супруг(а) на борту (SibSp)", min_value=0, max_value=10, step=1)
+    parch_input = st.number_input("Родители/дети на борту (Parch)", min_value=0, max_value=10, step=1)
+    fare_input = st.number_input("Плата за билет (Fare)", min_value=0.0, max_value=600.0, step=1.0)
+
+    submitted = st.form_submit_button("📊 Предсказать")
+
+
 
 user_input = pd.DataFrame([{
   'Pclass': pclass_input,
@@ -152,22 +171,6 @@ for col in ['Age', 'SibSp', 'Parch', 'Fare']:
     
 user_input_scaled = scaler.transform(user_input_encoded)
 user_input_scaled = user_input_scaled[X_train_scaled.columns]
-
-
-with st.form("user_input_form"):
-    # Categorical inputs
-    pclass_input = st.selectbox("Класс (Pclass)", [1, 2, 3], index=2)
-    sex_input = st.radio("Пол (Sex)", ['male', 'female'])
-    embarked_input = st.selectbox("Порт посадки (Embarked)", ['C', 'Q', 'S'])
-    prefix_input = st.selectbox("Обращение (Name Prefix)", ['Mr', 'Mrs', 'Miss', 'Master', 'Dr', 'Rev', 'Other'])
-
-    # Numerical inputs
-    age_input = st.number_input("Возраст (Age)", min_value=0.0, max_value=100.0, step=1.0)
-    sibsp_input = st.number_input("Братья/сестры или супруг(а) на борту (SibSp)", min_value=0, max_value=10, step=1)
-    parch_input = st.number_input("Родители/дети на борту (Parch)", min_value=0, max_value=10, step=1)
-    fare_input = st.number_input("Плата за билет (Fare)", min_value=0.0, max_value=600.0, step=1.0)
-
-    submitted = st.form_submit_button("📊 Предсказать")
 
 
 # st.sidebar.subheader("Prediction Results")
