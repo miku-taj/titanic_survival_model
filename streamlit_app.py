@@ -221,13 +221,15 @@ with st.form("user_input_form"):
         }])
         st.dataframe(user_input)
         user_input_encoded = encoder.transform(user_input)
+        st.dataframe(user_input_encoded)
         for col in ['Age', 'SibSp', 'Parch', 'Fare']:
             user_input_encoded[col] = user_input[col].values
         user_input_scaled = scaler.transform(user_input_encoded)
+        st.dataframe(user_input_scaled)
         
         with st.expander('Просмотреть результат:'):
             pred = model.predict(user_input_scaled)[0]
-            proba = model.predict_proba(user_input_encoded)[0]
+            st.dataframe(model.predict_proba(user_input_scaled))
             if pred == 1:
                 st.markdown("**Сожалеем, этот человек погиб на Титанике.**")
             else:
