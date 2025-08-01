@@ -138,9 +138,9 @@ st.header('Make Prediction')
 
 with st.form("user_input_form"):
 
-    pclass_input = st.selectbox("Класс (Pclass)", list(data['Pclass].unique()), index=0)
+    pclass_input = st.selectbox("Класс (Pclass)", list(data['Pclass'].unique()), index=0)
     sex_input = st.radio("Пол (Sex)", ['male', 'female'])
-    embarked_input = st.selectbox("Порт посадки (Embarked)", list(data['Embarked]), index=2)
+    embarked_input = st.selectbox("Порт посадки (Embarked)", list(data['Embarked']), index=2)
     prefix_input = st.selectbox("Обращение (Name Prefix)", list(data['Name Prefix'].unique()), index=0)
 
     age_input = st.number_input("Возраст (Age)", min_value=0, max_value=100, step=1.0)
