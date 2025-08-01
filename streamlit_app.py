@@ -182,7 +182,7 @@ with col2:
     st.pyplot(matrix2, use_container_width=True)
 with col3:
     st.markdown("##### График ROC AUC на тестовых данных")
-    roc_curve = RocCurveDisplay.from_estimator(model, X_test_scaled, y_test_scaled)
+    roc_curve = RocCurveDisplay.from_estimator(model, X_test_scaled, y_test)
     plt.title("ROC Curve")
     plt.tight_layout()
     st.pyplot(roc_curve, use_container_width=True)
