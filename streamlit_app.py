@@ -199,7 +199,7 @@ with st.form("user_input_form"):
 
     pclass_input = st.selectbox("Класс (Pclass)", list(data['Pclass'].unique()), index=0)
     sex_input = st.radio("Пол (Sex)", ['male', 'female'])
-    embarked_input = st.selectbox("Порт посадки (Embarked)", list(data['Embarked']), index=2)
+    embarked_input = st.selectbox("Порт посадки (Embarked)", list(data['Embarked'].unique()), index=2)
     prefix_input = st.selectbox("Обращение (Name Prefix)", list(data['Name Prefix'].unique()), index=0)
 
     age_input = st.number_input("Возраст (Age)", min_value=0, max_value=100, value=int(data['Age'].median()), step=1)
@@ -219,21 +219,18 @@ with st.form("user_input_form"):
             'Embarked': embarked_input,
             'Name Prefix': prefix_input
         }])
-        st.dataframe(user_input)
         user_input_encoded = encoder.transform(user_input)
-        st.dataframe(user_input_encoded)
         for col in ['Age', 'SibSp', 'Parch', 'Fare']:
             user_input_encoded[col] = user_input[col].values
         user_input_scaled = scaler.transform(user_input_encoded)
-        st.dataframe(user_input_scaled)
         
         with st.expander('Просмотреть результат:'):
             pred = model.predict(user_input_scaled)[0]
             st.dataframe(model.predict_proba(user_input_scaled))
             if pred == 1:
-                st.markdown("**Сожалеем, этот человек погиб на Титанике.**")
-            else:
                 st.markdown("**Поздравляем, этот человек выжил на Титанике!**")
+            else:
+                st.markdown("**Сожалеем, этот человек погиб на Титанике.**")
 
 
 st.header("Или загрузите CSV-файл")
