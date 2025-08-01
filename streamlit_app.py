@@ -97,7 +97,7 @@ sns.countplot(x='Embarked', hue='Survived', data=data, ax=ax5, alpha=1.0)
 plt.tight_layout()
 st.pyplot(fig, use_container_width=True)
 
-data_columns = list(data.columns)
+data_columns = set(data.columns)
 X = data.drop('Survived', axis=1)
 y = data['Survived']
 
@@ -183,7 +183,7 @@ with st.container():
     if uploaded_file is not None:
         try:
             user_csv = pd.read_csv(uploaded_file)
-            if data_columns not in user_csv.columns:
+            data_columns.issubset(set(user_csv.columns)):
                 st.error(f"Файл не содержит необходимых столбцов")
             else:
                 st.success("Файл успешно загружен!")
