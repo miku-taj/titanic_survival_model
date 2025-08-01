@@ -146,7 +146,7 @@ user_input = pd.DataFrame([{
   'Sex': sex_input,
   'Age': age_input,
   'SibSp': sibsp_input,
-  'Parch/': parch_input,
+  'Parch': parch_input,
   'Fare': fare_input,
   'Embarked': embarked_input,
   'Name Prefix': prefix_input
