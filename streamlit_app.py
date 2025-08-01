@@ -161,8 +161,13 @@ user_input_scaled = scaler.transform(user_input_encoded)
 
 st.header("Prediction Results")
 
-st.expander('See results below')
-
+with st.expander('See results below'):
+    pred = model.predict(user_input_scaled)[0]
+    proba = model.predict_proba(user_input_encoded)[0]
+    if pred == 1:
+        st.markdown(f"**Our condolences, the person drowned on Titanic**")
+    else:
+        st.markdown(f"**Congratulations, the person survived on Titanic**")
 # for name, model in models.items():
 #   pred = model.predict(user_input_encoded)[0]
 #   proba = model.predict_proba(user_input_encoded)[0]
