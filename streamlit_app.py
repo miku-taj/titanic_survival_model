@@ -226,11 +226,10 @@ with st.form("user_input_form"):
         
         with st.expander('Просмотреть результат:'):
             pred = model.predict(user_input_scaled)[0]
-            st.dataframe(model.predict_proba(user_input_scaled))
             if pred == 1:
-                st.markdown("**Поздравляем, этот человек выжил на Титанике!**")
+                st.write(f"**Поздравляем, этот человек выжил на Титанике с вероятностью {model.predict_proba(user_input_scaled)[0][1]}.**" )
             else:
-                st.markdown("**Сожалеем, этот человек погиб на Титанике.**")
+                st.write("**Сожалеем, этот человек погиб на Титанике с вероятностью {model.predict_proba(user_input_scaled)[0][0]}.**")
 
 
 st.header("Или загрузите CSV-файл")
