@@ -229,7 +229,7 @@ with st.form("user_input_form"):
             if pred == 1:
                 st.write(f"**Поздравляем, этот человек выжил на Титанике с вероятностью {model.predict_proba(user_input_scaled)[0][1]}.**" )
             else:
-                st.write("**Сожалеем, этот человек погиб на Титанике с вероятностью {model.predict_proba(user_input_scaled)[0][0]}.**")
+                st.write(f"**Сожалеем, этот человек погиб на Титанике с вероятностью {model.predict_proba(user_input_scaled)[0][0]}.**")
 
 
 st.header("Или загрузите CSV-файл")
