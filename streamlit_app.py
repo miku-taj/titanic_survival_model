@@ -123,7 +123,7 @@ st.header('Метрики модели')
 def compute_metrics(model, X_train, y_train, X_test, y_test):
 
     result = {'Train': {},
-              'Test': {}},
+              'Test': {},
               'Train-Test Difference': {}}
     metrics = {
         "Accuracy": accuracy_score,
