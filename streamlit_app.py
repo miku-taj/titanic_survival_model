@@ -97,7 +97,7 @@ y = data['Survived']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
 
-te = TargetEncoder(cols=['Name Prefix', 'Sex', 'Embarked'])
+encoder = TargetEncoder(cols=['Name Prefix', 'Sex', 'Embarked'])
 X_train_encoded = encoder.fit_transform(X_train, y_train)
 X_test_encoded = encoder.transform(X_test)
 
@@ -105,12 +105,10 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-# models = {
-#   'Decision Tree': DecisionTreeClassifier(random_state=42),
-#   'KNN': KNeighborsClassifier()
-# }
+model = RandomForestClassifier(n_estimators=20, random_state=42)
+model.fit(X_train, y_train)
+y_predict = model.predict(X_test)
 
-# model = 
 
 # results = []
 # for name, model in models.items():
