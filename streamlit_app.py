@@ -226,8 +226,8 @@ with st.container():
             user_csv = pd.read_csv(uploaded_file)
             if data_columns.issubset(set(user_csv.columns)):
                 st.success("Файл успешно загружен!")
-                else:
-                    st.error(f"Файл не содержит необходимых столбцов")
+            else:
+                st.error(f"Файл не содержит необходимых столбцов")
         except Exception as e:
             st.error(f"Ошибка при чтении файла: {e}")
     else:
