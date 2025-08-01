@@ -97,6 +97,7 @@ sns.countplot(x='Embarked', hue='Survived', data=data, ax=ax5, alpha=1.0)
 plt.tight_layout()
 st.pyplot(fig, use_container_width=True)
 
+data_columns = list(data.columns)
 X = data.drop('Survived', axis=1)
 y = data['Survived']
 
@@ -173,20 +174,21 @@ with st.form("user_input_form"):
                 st.markdown("**Поздравляем, этот человек выжил на Титанике!**")
 
 
-st.markdown("### Или загрузите CSV-файл")
-st.info("Вы можете загрузить CSV-файл с данными пассажиров Титаника. Убедитесь, что в нём есть все необходимые столбцы.")
+st.header("Или загрузите CSV-файл")
+st.info("Вы можете загрузить CSV-файл с данными пассажиров Титаника.")
 
 with st.container():
     uploaded_file = st.file_uploader("Выберите файл", type=["csv"], label_visibility="collapsed")
 
     if uploaded_file is not None:
         try:
-            df = pd.read_csv(uploaded_file)
-            st.success("✅ Файл успешно загружен!")
-            st.write("Первые строки файла:")
-            st.dataframe(df.head())
-        except Exception as e:
-            st.error(f"❌ Ошибка при чтении файла: {e}")
+            user_csv = pd.read_csv(uploaded_file)
+            if data_columns not in user_csv.columns:
+                st.error(f"Файл не содержит необходимых столбцов")
+            else:
+                st.success("Файл успешно загружен!")
+        except Exception:
+            st.error(f"Ошибка при чтении файла: {Exception}")
     else:
         st.caption("Файл ещё не загружен.")
 
