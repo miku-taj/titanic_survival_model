@@ -15,14 +15,9 @@ from sklearn.metrics import (
     confusion_matrix, RocCurveDisplay
 )
 
-
-
 st.set_page_config(page_title="Модель выживания на Титанике", layout="wide")
 st.title("Модель выживания на Титанике")
 st.write("Работа с данными пассажиров Титаника")
-
-# if 'prediction_button_clicked' not in st.session_state:
-#     st.session_state.prediction_button_clicked = False
 
 data = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_model/refs/heads/master/Clean-Titanic-Dataset.csv")
 
@@ -34,18 +29,6 @@ data = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_
 # take into account user might not know some values yk? like, fare
 # Side bar menu with proper styling
 # mb represent the predictin graphically somehow? 
-
-custom_css = """
-    <style>
-    a {
-        text-decoration: none;
-        color: #000000;
-    }
-    a:hover {
-        text-decoration: underline
-    }
-    </style>
-    """
 
 st.sidebar.markdown('''
 # Разделы
@@ -187,12 +170,6 @@ with col3:
     plt.tight_layout()
     st.pyplot(roc_curve, use_container_width=True)
 
-
-# st.subheader("Comparing models metrics")
-# st.table(pd.DataFrame(results))
-
-
-
 st.header('Сделать прогноз')
 
 with st.form("user_input_form"):
@@ -245,6 +222,7 @@ with st.container():
                 st.error(f"Файл не содержит необходимых столбцов")
             else:
                 st.success("Файл успешно загружен!")
+                st.markdown("#### Результаты классификации")
                 user_csv_edit = encoder.transform(user_csv[X.columns])
                 user_csv_edit = scaler.transform(user_csv_edit)
                 survived = model.predict(user_csv_edit)
@@ -257,21 +235,3 @@ with st.container():
         st.caption("Файл ещё не загружен.")
 
 
-
-
-
-
-
-
-
-
-
-st.header("Prediction Results")
-
-            
-# for name, model in models.items():
-#   pred = model.predict(user_input_encoded)[0]
-#   proba = model.predict_proba(user_input_encoded)[0]
-#   st.sidebar.markdown(f"**{name}: {pred}**")
-#   proba_df = pd.DataFrame({'Species': model.classes_, 'Probability': proba})
-#   st.sidebar.dataframe(proba_df, use_container_width=True)
