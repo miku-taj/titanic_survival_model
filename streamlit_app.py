@@ -152,7 +152,7 @@ st.table(compute_metrics(model, X_train_scaled, y_train, X_test_scaled, y_test))
 
 matrix = plt.figure(figsize=(5, 4))
 # sns.set(font_scale=1.1, style="whitegrid")
-cm = confusion_matrix(y_test, model.predict())
+cm = confusion_matrix(y_test, model.predict(X_train_scaled))
 sns.heatmap(cm, annot=True, cmap="Blues",
             xticklabels=["Predicted No", "Predicted Yes"],
             yticklabels=["Actual No", "Actual Yes"])
