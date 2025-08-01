@@ -41,7 +41,7 @@ st.sidebar.markdown('''
 
 
 st.header("Размер датасета")
-st.write(f"Rows: {data.shape[0]} Columns: {data.shape[1]}")
+st.write(f"Строки: {data.shape[0]} Столбцы: {data.shape[1]}")
 
 st.header("Случайные 10 строк")
 st.dataframe(data.sample(10), use_container_width=True)
