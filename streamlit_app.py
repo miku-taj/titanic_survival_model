@@ -13,9 +13,9 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score, roc_auc_score
 
 
-st.set_page_config(page_title="Titanic Survival Model", layout="wide")
-st.title('Titanic Survival Model')
-st.write('Working with titanic dataset')
+st.set_page_config(page_title="Модель выживания на Титанике", layout="wide")
+st.title("Модель выживания на Титанике")
+st.write("Работа с данными пассажиров Титаника")
 
 # if 'prediction_button_clicked' not in st.session_state:
 #     st.session_state.prediction_button_clicked = False
@@ -44,21 +44,22 @@ custom_css = """
     """
 
 st.sidebar.markdown('''
-# Sections
-- [Dataset shape](#dataset-shape)
-- [Random 10 rows](#random-10-rows)
-- [Visualization](#visualization)
-- [Make Prediction](#make-prediction)
+# Разделы
+- [Размер датасета](#размер-датасета)
+- [Случайные 10 строк](#случайные-10-строк)
+- [Визуализация](#визуализация)
+- [Метрики модели](#метрики-модели)
+- [Сделать прогноз](#сделать-прогноз)
 ''', unsafe_allow_html=True)
 
 
-st.header("Dataset shape")
+st.header("Размер датасета")
 st.write(f"Rows: {data.shape[0]} Columns: {data.shape[1]}")
 
-st.header("Random 10 rows")
+st.header("Случайные 10 строк")
 st.dataframe(data.sample(10), use_container_width=True)
 
-st.header("Visualization")
+st.header("Визуализация")
 
 sns.set_theme(style="whitegrid", palette="Set2", font_scale=0.6)
 fig = plt.figure(figsize=(8, 6))
@@ -113,6 +114,7 @@ model = RandomForestClassifier(n_estimators=20, random_state=42)
 model.fit(X_train_scaled, y_train)
 y_predict = model.predict(X_test_scaled)
 
+st.header('Метрики модели')
 
 # results = []
 # for name, model in models.items():
@@ -130,11 +132,7 @@ y_predict = model.predict(X_test_scaled)
 
 
 
-st.header('Make Prediction')
-
-# def prediction_button_click():
-#     st.session_state.prediction_button_clicked = True 
-
+st.header('Сделать прогноз')
 
 with st.form("user_input_form"):
 
@@ -170,10 +168,27 @@ with st.form("user_input_form"):
             pred = model.predict(user_input_scaled)[0]
             proba = model.predict_proba(user_input_encoded)[0]
             if pred == 1:
-                st.markdown(f"**Our condolences, the person drowned on Titanic**")
+                st.markdown("**Сожалеем, этот человек погиб на Титанике.**")
             else:
-                st.markdown(f"**Congratulations, the person survived on Titanic**")
+                st.markdown("**Поздравляем, этот человек выжил на Титанике!**")
 
+
+st.markdown("### 📂 Или загрузите CSV-файл")
+st.info("Вы можете загрузить CSV-файл с данными пассажиров Титаника. Убедитесь, что в нём есть все необходимые столбцы.")
+
+with st.container():
+    uploaded_file = st.file_uploader("Выберите файл", type=["csv"], label_visibility="collapsed")
+
+    if uploaded_file is not None:
+        try:
+            df = pd.read_csv(uploaded_file)
+            st.success("✅ Файл успешно загружен!")
+            st.write("Первые строки файла:")
+            st.dataframe(df.head())
+        except Exception as e:
+            st.error(f"❌ Ошибка при чтении файла: {e}")
+    else:
+        st.caption("Файл ещё не загружен.")
 
 
 
