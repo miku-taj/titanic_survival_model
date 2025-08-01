@@ -25,6 +25,17 @@ data = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_
 # Side bar menu with proper styling
 # mb represent the predictin graphically somehow? 
 
+custom_css = """
+    <style>
+    a {
+        text-decoration: none;
+        color: #000000;
+    }
+    a:hover {
+        text-decoration: underline
+    }
+    </style>
+    """
 
 st.sidebar.markdown('''
 # Sections
