@@ -6,7 +6,7 @@ import seaborn as sns
 import plotly.express as px
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from sklearn.ensemble import RandomForrestClassifier
+from sklearn.ensemble import RandomForestClassifier
 from category_encoders import TargetEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
@@ -110,7 +110,7 @@ X_test = scaler.transform(X_test)
 #   'KNN': KNeighborsClassifier()
 # }
 
-model = R
+# model = 
 
 # results = []
 # for name, model in models.items():
