@@ -10,7 +10,11 @@ from sklearn.ensemble import RandomForestClassifier
 from category_encoders import TargetEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error, r2_score, roc_auc_score
+from sklearn.metrics import (
+    accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+    # , confusion_matrix, classification_report, ConfusionMatrixDisplay, RocCurveDisplay
+)
+
 
 
 st.set_page_config(page_title="Модель выживания на Титанике", layout="wide")
@@ -117,16 +121,53 @@ y_predict = model.predict(X_test_scaled)
 
 st.header('Метрики модели')
 
-# results = []
-# for name, model in models.items():
-#   model.fit(X_train_encoded, y_train)
-#   acc_train = accuracy_score(y_train, model.predict(X_train_encoded))
-#   acc_test = accuracy_score(y_test, model.predict(X_test_encoded))
-#   results.append({
-#     'Model': name,
-#     'Train Accuracy': round(acc_train, 2),
-#     'Test Accuracy': round(acc_test, 2)
-#   })
+# # Confusion Matrix Plot
+# plt.figure(figsize=(5, 4))
+# sns.set(font_scale=1.1, style="whitegrid")
+# cm = confusion_matrix(y_test, y_pred)
+# sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", cbar=False,
+#             xticklabels=["Predicted No", "Predicted Yes"],
+#             yticklabels=["Actual No", "Actual Yes"])
+# plt.title("Confusion Matrix")
+# plt.xlabel("Prediction")
+# plt.ylabel("Actual")
+# plt.tight_layout()
+# plt.show()
+
+# # ROC Curve Plot
+# RocCurveDisplay.from_estimator(rf, X_test, y_test)
+# plt.title("ROC Curve")
+# plt.tight_layout()
+# plt.show()
+
+
+def compute_metrics(model, X_train, y_train, X_test, y_test):
+
+    result = {'Train': {},
+              'Test': {}}
+    metrics = {
+        "Accuracy": accuracy_score,
+        "Precision": precision_score,
+        "Recall": recall_score,
+        "F1 Score": f1_score,
+        "ROC AUC": roc_auc_score
+        }
+
+    y_pred_train = model.predict(X_train)
+    y_prob_train = model.predict_proba(X_train)[:, 1]
+
+    y_pred_test = model.predict(X_test)
+    y_prob_test = model.predict_proba(X_test)[:, 1]
+
+    for name, metric in metrics.items():
+        train_score = metric(y_train, y_pred_train)
+        test_score = metric(y_test, y_pred_test)
+        result['Train'][name] = train_score
+        result['Test'][name] = test_score
+
+    return pd.DataFrame(result)
+
+st.table(compute_metrics(model, X_train_scaled, y_train, X_test_scaled, y_test))
 
 # st.subheader("Comparing models metrics")
 # st.table(pd.DataFrame(results))
@@ -184,9 +225,9 @@ with st.container():
         try:
             user_csv = pd.read_csv(uploaded_file)
             if data_columns.issubset(set(user_csv.columns)):
-                st.error(f"Файл не содержит необходимых столбцов")
-            else:
                 st.success("Файл успешно загружен!")
+                else:
+                    st.error(f"Файл не содержит необходимых столбцов")
         except Exception as e:
             st.error(f"Ошибка при чтении файла: {e}")
     else:
