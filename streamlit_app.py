@@ -152,24 +152,24 @@ with st.form("user_input_form"):
 
 
 
-user_input = pd.DataFrame([{
-  'Pclass': pclass_input,
-  'Sex': sex_input,
-  # 'Age': age_input,
-  # 'SibSp': sibsp_input,
-  # 'Parch/': parch_input,
-  # 'Fare': fare_input,
-  'Embarked': embarked_input,
-  'Name Prefix': prefix_input
-}])
+# user_input = pd.DataFrame([{
+#   'Pclass': pclass_input,
+#   'Sex': sex_input,
+#   'Age': age_input,
+#   'SibSp': sibsp_input,
+#   'Parch/': parch_input,
+#   'Fare': fare_input,
+#   'Embarked': embarked_input,
+#   'Name Prefix': prefix_input
+# }])
 
-user_input_encoded = encoder.transform(user_input)
+# user_input_encoded = encoder.transform(user_input)
 
-for col in ['Age', 'SibSp', 'Parch', 'Fare']:
-  user_input_encoded[col] = user_input[col].values
+# for col in ['Age', 'SibSp', 'Parch', 'Fare']:
+#   user_input_encoded[col] = user_input[col].values
     
-user_input_scaled = scaler.transform(user_input_encoded)
-user_input_scaled = user_input_scaled[X_train_scaled.columns]
+# user_input_scaled = scaler.transform(user_input_encoded)
+# user_input_scaled = user_input_scaled[X_train_scaled.columns]
 
 
 # st.sidebar.subheader("Prediction Results")
