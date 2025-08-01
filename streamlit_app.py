@@ -101,9 +101,9 @@ sns.countplot(x='Embarked', hue='Survived', data=data, ax=ax5, alpha=1.0)
 plt.tight_layout()
 st.pyplot(fig, use_container_width=True)
 
-data_columns = set(data.columns)
 X = data.drop('Survived', axis=1)
 y = data['Survived']
+required_columns = set(X.columns)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
 
@@ -243,15 +243,16 @@ with st.container():
     if uploaded_file is not None:
         try:
             user_csv = pd.read_csv(uploaded_file)
-            if data_columns.issubset(set(user_csv.columns)):
+            if not required_columns.issubset(set(user_csv.columns)):
+                st.error(f"Файл не содержит необходимых столбцов")
+            else:
                 st.success("Файл успешно загружен!")
                 user_csv_edit = encoder.transform(user_csv[X.columns])
                 user_csv_edit = scaler.transform(user_csv)
                 survived = model.predict(user_csv_edit)
                 user_csv.loc[:, 'Survived'] = survived
                 st.dataframe(user_csv)
-            else:
-                st.error(f"Файл не содержит необходимых столбцов")
+                
         except Exception as e:
             st.error(f"Ошибка при чтении файла: {e}")
     else:
