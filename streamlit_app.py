@@ -187,8 +187,8 @@ with st.container():
                 st.error(f"Файл не содержит необходимых столбцов")
             else:
                 st.success("Файл успешно загружен!")
-        except Exception:
-            st.error(f"Ошибка при чтении файла: {Exception}")
+        except Exception as e:
+            st.error(f"Ошибка при чтении файла: {e}")
     else:
         st.caption("Файл ещё не загружен.")
 
