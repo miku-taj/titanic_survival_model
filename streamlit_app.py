@@ -102,12 +102,12 @@ X_train_encoded = encoder.fit_transform(X_train, y_train)
 X_test_encoded = encoder.transform(X_test)
 
 scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
+X_train_scaled = scaler.fit_transform(X_train_encoded)
+X_test_scaled = scaler.transform(X_test_encoded)
 
 model = RandomForestClassifier(n_estimators=20, random_state=42)
-model.fit(X_train, y_train)
-y_predict = model.predict(X_test)
+model.fit(X_train_scaled, y_train)
+y_predict = model.predict(X_test_scaled)
 
 
 # results = []
