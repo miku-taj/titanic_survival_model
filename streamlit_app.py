@@ -150,17 +150,37 @@ def compute_metrics(model, X_train, y_train, X_test, y_test):
 
 st.table(compute_metrics(model, X_train_scaled, y_train, X_test_scaled, y_test))
 
-matrix = plt.figure(figsize=(5, 4))
 # sns.set(font_scale=1.1, style="whitegrid")
 cm = confusion_matrix(y_test, model.predict(X_test_scaled))
-sns.heatmap(cm, annot=True, cmap="Blues", cbar=False,
+
+
+
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown("##### Матрица ошибок на обучающих данных")
+    matrix1 = plt.figure(figsize=(5, 4))
+    cm = confusion_matrix(y_train, model.predict(X_train_scaled))
+    sns.heatmap(cm, annot=True, cmap="Blues", cbar=False,
             xticklabels=["Predicted No", "Predicted Yes"],
             yticklabels=["Actual No", "Actual Yes"])
-plt.title("Confusion Matrix")
-plt.xlabel("Prediction")
-plt.ylabel("Actual")
-plt.tight_layout()
-st.pyplot(matrix)
+    plt.title("Confusion Matrix")
+    plt.xlabel("Prediction")
+    plt.ylabel("Actual")
+    plt.tight_layout()
+    st.pyplot(matrix1, use_container_width=True)
+with col2:
+    st.markdown("##### Матрица ошибок на тестовых данных")
+    matrix2 = plt.figure(figsize=(5, 4))
+    cm = confusion_matrix(y_test, model.predict(X_test_scaled))
+    sns.heatmap(cm, annot=True, cmap="Blues", cbar=False,
+            xticklabels=["Predicted No", "Predicted Yes"],
+            yticklabels=["Actual No", "Actual Yes"])
+    plt.title("Confusion Matrix")
+    plt.xlabel("Prediction")
+    plt.ylabel("Actual")
+    plt.tight_layout()
+    st.pyplot(matrix2, use_container_width=True)
+
 
 # st.subheader("Comparing models metrics")
 # st.table(pd.DataFrame(results))
