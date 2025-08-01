@@ -17,6 +17,9 @@ st.set_page_config(page_title="Titanic Survival Model", layout="wide")
 st.title('Titanic Survival Model')
 st.write('Working with titanic dataset')
 
+# if 'prediction_button_clicked' not in st.session_state:
+#     st.session_state.prediction_button_clicked = False
+
 data = pd.read_csv("https://raw.githubusercontent.com/miku-taj/titanic_survival_model/refs/heads/master/Clean-Titanic-Dataset.csv")
 
 # Ideas - generate random person and predic function
@@ -126,8 +129,12 @@ y_predict = model.predict(X_test_scaled)
 # st.table(pd.DataFrame(results))
 
 
+
 st.header('Make Prediction')
 
+# def prediction_button_click():
+#     st.session_state.prediction_button_clicked = True 
+    
 with st.form("user_input_form"):
 
     pclass_input = st.selectbox("Класс (Pclass)", list(data['Pclass'].unique()), index=0)
@@ -153,21 +160,24 @@ user_input = pd.DataFrame([{
 }])
 
 user_input_encoded = encoder.transform(user_input)
-
 for col in ['Age', 'SibSp', 'Parch', 'Fare']:
   user_input_encoded[col] = user_input[col].values
-    
 user_input_scaled = scaler.transform(user_input_encoded)
+
+
+
 
 st.header("Prediction Results")
 
-with st.expander('See results below'):
-    pred = model.predict(user_input_scaled)[0]
-    proba = model.predict_proba(user_input_encoded)[0]
-    if pred == 1:
-        st.markdown(f"**Our condolences, the person drowned on Titanic**")
-    else:
-        st.markdown(f"**Congratulations, the person survived on Titanic**")
+if submit_button:
+    with st.expander('See results below'):
+        pred = model.predict(user_input_scaled)[0]
+        proba = model.predict_proba(user_input_encoded)[0]
+        if pred == 1:
+            st.markdown(f"**Our condolences, the person drowned on Titanic**")
+        else:
+            st.markdown(f"**Congratulations, the person survived on Titanic**")
+            
 # for name, model in models.items():
 #   pred = model.predict(user_input_encoded)[0]
 #   proba = model.predict_proba(user_input_encoded)[0]
