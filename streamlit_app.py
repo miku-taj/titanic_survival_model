@@ -219,7 +219,7 @@ with st.form("user_input_form"):
             'Embarked': embarked_input,
             'Name Prefix': prefix_input
         }])
-
+        st.dataframe(user_input)
         user_input_encoded = encoder.transform(user_input)
         for col in ['Age', 'SibSp', 'Parch', 'Fare']:
             user_input_encoded[col] = user_input[col].values
@@ -248,7 +248,7 @@ with st.container():
             else:
                 st.success("Файл успешно загружен!")
                 user_csv_edit = encoder.transform(user_csv[X.columns])
-                user_csv_edit = scaler.transform(user_csv)
+                user_csv_edit = scaler.transform(user_csv_edit)
                 survived = model.predict(user_csv_edit)
                 user_csv.loc[:, 'Survived'] = survived
                 st.dataframe(user_csv)
