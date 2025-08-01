@@ -158,8 +158,6 @@ for col in ['Age', 'SibSp', 'Parch', 'Fare']:
   user_input_encoded[col] = user_input[col].values
     
 user_input_scaled = scaler.transform(user_input_encoded)
-user_input_scaled = user_input_scaled[X_train_scaled.columns]
-
 
 st.header("Prediction Results")
 
