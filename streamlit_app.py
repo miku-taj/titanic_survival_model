@@ -250,14 +250,6 @@ with st.container():
                 survived = model.predict(user_csv_edit)
                 user_csv.loc[:, 'Survived'] = survived
                 st.dataframe(user_csv)
-
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train_encoded)
-X_test_scaled = scaler.transform(X_test_encoded)
-
-                
-            
-            
             else:
                 st.error(f"Файл не содержит необходимых столбцов")
         except Exception as e:
