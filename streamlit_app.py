@@ -45,15 +45,14 @@ custom_css = """
 
 st.sidebar.markdown('''
 # Разделы
-- [Размер датасета](#размер-датасета)
-- [Случайные 10 строк](#случайные-10-строк)
-- [Визуализация](#визуализация)
+- [Размер датасета](#razmer-dataseta)
+- [Случайные 10 строк](#sluchaynye-10-strok)
+- [Визуализация](#vizualizatsiya)
 - [Метрики модели](#метрики-модели)
-- [Сделать прогноз](#сделать-прогноз)
+- [Сделать прогноз](#sdelat-prognoz)
 ''', unsafe_allow_html=True)
 
 
-st.markdown('<a name="размер-датасета"></a>', unsafe_allow_html=True)
 st.header("Размер датасета")
 st.write(f"Rows: {data.shape[0]} Columns: {data.shape[1]}")
 
