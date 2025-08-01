@@ -146,7 +146,7 @@ with st.form("user_input_form"):
     sibsp_input = st.number_input("Братья/сестры или супруг(а) на борту (SibSp)", min_value=int(data['SibSp'].min()), max_value=int(data['SibSp'].max()), step=1)
     parch_input = st.number_input("Родители/дети на борту (Parch)", min_value=int(data['Parch'].min()), max_value=int(data['Parch'].max()), step=1)
     fare_input = st.slider("Плата за билет (Fare)", min_value=float(data['Fare'].min()), max_value=float(data['Fare'].max()), value=float(data['Fare'].mean()))
-    submitted = st.form_submit_button("Предсказать")
+    submit_button = st.form_submit_button("Предсказать")
 
 user_input = pd.DataFrame([{
   'Pclass': pclass_input,
