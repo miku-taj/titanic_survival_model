@@ -183,7 +183,7 @@ with st.container():
     if uploaded_file is not None:
         try:
             user_csv = pd.read_csv(uploaded_file)
-            data_columns.issubset(set(user_csv.columns)):
+            if data_columns.issubset(set(user_csv.columns)):
                 st.error(f"Файл не содержит необходимых столбцов")
             else:
                 st.success("Файл успешно загружен!")
