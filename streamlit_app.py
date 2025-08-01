@@ -45,6 +45,7 @@ st.sidebar.markdown('''
 - [Dataset shape](#dataset-shape)
 - [Random 10 rows](#random-10-rows)
 - [Visualization](#visualization)
+- [Make Prediction](#make-prediction)
 ''', unsafe_allow_html=True)
 
 
@@ -124,17 +125,8 @@ y_predict = model.predict(X_test_scaled)
 # st.subheader("Comparing models metrics")
 # st.table(pd.DataFrame(results))
 
-# st.sidebar.header("Prediction based on features")
 
 st.header('Make Prediction')
-
-# island_input = st.sidebar.selectbox("Island", df['island'].unique())
-# sex_input = st.sidebar.selectbox("Sex", df['sex'].unique())
-# bill_length_input = st.sidebar.slider("Bill Length (mm)", float(df['bill_length_mm'].min()), float(df['bill_length_mm'].max()), float(df['bill_length_mm'].mean()))
-# bill_depth_input = st.sidebar.slider("Bill Depth (mm)", float(df['bill_depth_mm'].min()), float(df['bill_depth_mm'].max()), float(df['bill_depth_mm'].mean()))
-# flipper_length_input = st.sidebar.slider("Flipper Length (mm)", float(df['flipper_length_mm'].min()), float(df['flipper_length_mm'].max()), float(df['flipper_length_mm'].mean()))
-# body_mass_input = st.sidebar.slider("Body Mass (g)", float(df['body_mass_g'].min()), float(df['body_mass_g'].max()), float(df['body_mass_g'].mean()))
-
 
 with st.form("user_input_form"):
 
@@ -149,29 +141,29 @@ with st.form("user_input_form"):
     fare_input = st.slider("Плата за билет (Fare)", min_value=float(data['Fare'].min()), max_value=float(data['Fare'].max()), value=float(data['Fare'].mean()))
     submitted = st.form_submit_button("Предсказать")
 
+user_input = pd.DataFrame([{
+  'Pclass': pclass_input,
+  'Sex': sex_input,
+  'Age': age_input,
+  'SibSp': sibsp_input,
+  'Parch/': parch_input,
+  'Fare': fare_input,
+  'Embarked': embarked_input,
+  'Name Prefix': prefix_input
+}])
 
+user_input_encoded = encoder.transform(user_input)
 
-# user_input = pd.DataFrame([{
-#   'Pclass': pclass_input,
-#   'Sex': sex_input,
-#   'Age': age_input,
-#   'SibSp': sibsp_input,
-#   'Parch/': parch_input,
-#   'Fare': fare_input,
-#   'Embarked': embarked_input,
-#   'Name Prefix': prefix_input
-# }])
-
-# user_input_encoded = encoder.transform(user_input)
-
-# for col in ['Age', 'SibSp', 'Parch', 'Fare']:
-#   user_input_encoded[col] = user_input[col].values
+for col in ['Age', 'SibSp', 'Parch', 'Fare']:
+  user_input_encoded[col] = user_input[col].values
     
-# user_input_scaled = scaler.transform(user_input_encoded)
-# user_input_scaled = user_input_scaled[X_train_scaled.columns]
+user_input_scaled = scaler.transform(user_input_encoded)
+user_input_scaled = user_input_scaled[X_train_scaled.columns]
 
 
-# st.sidebar.subheader("Prediction Results")
+st.header("Prediction Results")
+
+st.expander('See results below')
 
 # for name, model in models.items():
 #   pred = model.predict(user_input_encoded)[0]
