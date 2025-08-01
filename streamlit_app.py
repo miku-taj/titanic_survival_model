@@ -11,8 +11,8 @@ from category_encoders import TargetEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import (
-    accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
-    # , confusion_matrix, classification_report, ConfusionMatrixDisplay, RocCurveDisplay
+    accuracy_score, precision_score, recall_score, f1_score, roc_auc_score,
+    confusion_matrix, RocCurveDisplay
 )
 
 
@@ -52,7 +52,7 @@ st.sidebar.markdown('''
 - [Размер датасета](#razmer-dataseta)
 - [Случайные 10 строк](#sluchaynye-10-strok)
 - [Визуализация](#vizualizatsiya)
-- [Метрики модели](#метрики-модели)
+- [Метрики модели](#metriki-modeli)
 - [Сделать прогноз](#sdelat-prognoz)
 ''', unsafe_allow_html=True)
 
@@ -117,34 +117,14 @@ X_test_scaled = scaler.transform(X_test_encoded)
 
 model = RandomForestClassifier(n_estimators=20, random_state=42)
 model.fit(X_train_scaled, y_train)
-y_predict = model.predict(X_test_scaled)
 
 st.header('Метрики модели')
-
-# # Confusion Matrix Plot
-# plt.figure(figsize=(5, 4))
-# sns.set(font_scale=1.1, style="whitegrid")
-# cm = confusion_matrix(y_test, y_pred)
-# sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", cbar=False,
-#             xticklabels=["Predicted No", "Predicted Yes"],
-#             yticklabels=["Actual No", "Actual Yes"])
-# plt.title("Confusion Matrix")
-# plt.xlabel("Prediction")
-# plt.ylabel("Actual")
-# plt.tight_layout()
-# plt.show()
-
-# # ROC Curve Plot
-# RocCurveDisplay.from_estimator(rf, X_test, y_test)
-# plt.title("ROC Curve")
-# plt.tight_layout()
-# plt.show()
-
 
 def compute_metrics(model, X_train, y_train, X_test, y_test):
 
     result = {'Train': {},
-              'Test': {}}
+              'Test': {}},
+              'Train-Test Difference': {}}
     metrics = {
         "Accuracy": accuracy_score,
         "Precision": precision_score,
@@ -164,10 +144,23 @@ def compute_metrics(model, X_train, y_train, X_test, y_test):
         test_score = metric(y_test, y_pred_test)
         result['Train'][name] = train_score
         result['Test'][name] = test_score
+        result['Train-Test Difference'][name] = train_score - test_score
 
     return pd.DataFrame(result)
 
 st.table(compute_metrics(model, X_train_scaled, y_train, X_test_scaled, y_test))
+
+matrix = plt.figure(figsize=(5, 4))
+# sns.set(font_scale=1.1, style="whitegrid")
+cm = confusion_matrix(y_test, model.predict())
+sns.heatmap(cm, annot=True, cmap="Blues",
+            xticklabels=["Predicted No", "Predicted Yes"],
+            yticklabels=["Actual No", "Actual Yes"])
+plt.title("Confusion Matrix")
+plt.xlabel("Prediction")
+plt.ylabel("Actual")
+plt.tight_layout()
+st.pyplot(matrix)
 
 # st.subheader("Comparing models metrics")
 # st.table(pd.DataFrame(results))
