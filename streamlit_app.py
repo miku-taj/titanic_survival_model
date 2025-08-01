@@ -155,12 +155,12 @@ cm = confusion_matrix(y_test, model.predict(X_test_scaled))
 
 
 
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("##### Матрица ошибок на обучающих данных")
     matrix1 = plt.figure(figsize=(5, 4))
     cm = confusion_matrix(y_train, model.predict(X_train_scaled))
-    sns.heatmap(cm, annot=True, cmap="Blues", cbar=False,
+    sns.heatmap(cm, annot=True, fmt='d', cmap="Blues", cbar=False,
             xticklabels=["Predicted No", "Predicted Yes"],
             yticklabels=["Actual No", "Actual Yes"])
     plt.title("Confusion Matrix")
@@ -172,7 +172,7 @@ with col2:
     st.markdown("##### Матрица ошибок на тестовых данных")
     matrix2 = plt.figure(figsize=(5, 4))
     cm = confusion_matrix(y_test, model.predict(X_test_scaled))
-    sns.heatmap(cm, annot=True, cmap="Blues", cbar=False,
+    sns.heatmap(cm, annot=True, fmt='d', cmap="Blues", cbar=False,
             xticklabels=["Predicted No", "Predicted Yes"],
             yticklabels=["Actual No", "Actual Yes"])
     plt.title("Confusion Matrix")
@@ -180,6 +180,12 @@ with col2:
     plt.ylabel("Actual")
     plt.tight_layout()
     st.pyplot(matrix2, use_container_width=True)
+with col3:
+    st.markdown("##### График ROC AUC на тестовых данных")
+    roc_curve = RocCurveDisplay.from_estimator(model, X_test_scaled, y_test_scaled)
+    plt.title("ROC Curve")
+    plt.tight_layout()
+    st.pyplot(roc_curve, use_container_width=True)
 
 
 # st.subheader("Comparing models metrics")
