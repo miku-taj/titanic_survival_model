@@ -132,19 +132,43 @@ y_predict = model.predict(X_test_scaled)
 # flipper_length_input = st.sidebar.slider("Flipper Length (mm)", float(df['flipper_length_mm'].min()), float(df['flipper_length_mm'].max()), float(df['flipper_length_mm'].mean()))
 # body_mass_input = st.sidebar.slider("Body Mass (g)", float(df['body_mass_g'].min()), float(df['body_mass_g'].max()), float(df['body_mass_g'].mean()))
 
-# user_input = pd.DataFrame([{
-#   'island': island_input,
-#   'sex': sex_input,
-#   'bill_length_mm': bill_length_input,
-#   'bill_depth_mm': bill_depth_input,
-#   'flipper_length_mm': flipper_length_input,
-#   'body_mass_g': body_mass_input
-# }])
+st.header('Make Prediction')
 
-# user_input_encoded = encoder.transform(user_input)
-# for col in ['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']:
-#   user_input_encoded[col] = user_input[col].values
-# user_input_encoded = user_input_encoded[X_train_encoded.columns]
+user_input = pd.DataFrame([{
+  'Pclass': pclass_input,
+  'Sex': sex_input,
+  'Age': age_input,
+  'SibSp': sibsp_input,
+  'Parch': parch_input,
+  'Fare': fare_input,
+  'Embarked': embarked_input,
+  'Name Prefix': prefix_input
+}])
+
+user_input_encoded = encoder.transform(user_input)
+
+for col in ['Age', 'SibSp', 'Parch', 'Fare']:
+  user_input_encoded[col] = user_input[col].values
+    
+user_input_scaled = scaler.transform(user_input_encoded)
+user_input_scaled = user_input_scaled[X_train_scaled.columns]
+
+
+with st.form("user_input_form"):
+    # Categorical inputs
+    pclass_input = st.selectbox("Класс (Pclass)", [1, 2, 3], index=2)
+    sex_input = st.radio("Пол (Sex)", ['male', 'female'])
+    embarked_input = st.selectbox("Порт посадки (Embarked)", ['C', 'Q', 'S'])
+    prefix_input = st.selectbox("Обращение (Name Prefix)", ['Mr', 'Mrs', 'Miss', 'Master', 'Dr', 'Rev', 'Other'])
+
+    # Numerical inputs
+    age_input = st.number_input("Возраст (Age)", min_value=0.0, max_value=100.0, step=1.0)
+    sibsp_input = st.number_input("Братья/сестры или супруг(а) на борту (SibSp)", min_value=0, max_value=10, step=1)
+    parch_input = st.number_input("Родители/дети на борту (Parch)", min_value=0, max_value=10, step=1)
+    fare_input = st.number_input("Плата за билет (Fare)", min_value=0.0, max_value=600.0, step=1.0)
+
+    submitted = st.form_submit_button("📊 Предсказать")
+
 
 # st.sidebar.subheader("Prediction Results")
 
