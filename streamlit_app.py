@@ -144,9 +144,9 @@ with st.form("user_input_form"):
     prefix_input = st.selectbox("Обращение (Name Prefix)", list(data['Name Prefix'].unique()), index=0)
 
     age_input = st.number_input("Возраст (Age)", min_value=0, max_value=100, step=1)
-    # sibsp_input = st.number_input("Братья/сестры или супруг(а) на борту (SibSp)", min_value=float(data['SibSp'].min()), max_value=float(data['SibSp'].max()), step=1.0)
-    # parch_input = st.number_input("Родители/дети на борту (Parch)", min_value=int(data['Parch'].min()), max_value=int(data['Parch'].max()), step=1)
-    # fare_input = st.slider("Плата за билет (Fare)", min_value=float(data['Fare'].min()), max_value=float(data['Fare'].max()))
+    sibsp_input = st.number_input("Братья/сестры или супруг(а) на борту (SibSp)", min_value=float(data['SibSp'].min()), max_value=float(data['SibSp'].max()), step=1.0)
+    parch_input = st.number_input("Родители/дети на борту (Parch)", min_value=int(data['Parch'].min()), max_value=int(data['Parch'].max()), step=1)
+    fare_input = st.slider("Плата за билет (Fare)", min_value=float(data['Fare'].min()), max_value=float(data['Fare'].max()), float(data['Fare'].mean()))
     
     submitted = st.form_submit_button("Предсказать")
 
