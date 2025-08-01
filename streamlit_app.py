@@ -184,6 +184,7 @@ with col3:
     st.markdown("##### График ROC AUC на тестовых данных")
     roc_curve, ax = plt.subplots()
     RocCurveDisplay.from_estimator(model, X_test_scaled, y_test, ax=ax)
+    plt.tight_layout()
     st.pyplot(roc_curve, use_container_width=True)
 
 
@@ -224,7 +225,7 @@ with st.form("user_input_form"):
             user_input_encoded[col] = user_input[col].values
         user_input_scaled = scaler.transform(user_input_encoded)
         
-        with st.expander('See results below'):
+        with st.expander('Просмотреть результат:'):
             pred = model.predict(user_input_scaled)[0]
             proba = model.predict_proba(user_input_encoded)[0]
             if pred == 1:
@@ -244,6 +245,19 @@ with st.container():
             user_csv = pd.read_csv(uploaded_file)
             if data_columns.issubset(set(user_csv.columns)):
                 st.success("Файл успешно загружен!")
+                user_csv_edit = encoder.transform(user_csv[X.columns])
+                user_csv_edit = scaler.transform(user_csv)
+                survived = model.predict(user_csv_edit)
+                user_csv.loc[:, 'Survived'] = survived
+                st.dataframe(user_csv)
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train_encoded)
+X_test_scaled = scaler.transform(X_test_encoded)
+
+                
+            
+            
             else:
                 st.error(f"Файл не содержит необходимых столбцов")
         except Exception as e:
